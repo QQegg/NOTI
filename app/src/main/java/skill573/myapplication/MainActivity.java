@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
     //連接網頁介質
     private WebView mWebView;
     private WebView noti ;
-
+    private Object a;
     private boolean test;
     private TextView tv;
     //連結藍芽介質
     private BluetoothManager bluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
     private static final int REQUEST_ENABLE_BT = 1;
-    private static final long SCAN_PERIOD = 100000; //10 seconds 搜尋頻率 1S:1000
+    private static final long SCAN_PERIOD = 1000000; //10 seconds 搜尋頻率 1S:1000
     private Handler mHandler;
 
     private NotificationManager notificationManager;
@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
                 }
             }, SCAN_PERIOD);
+
             mBluetoothAdapter.startLeScan(mLeScanCallback);
         } else {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -161,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
                         //判斷是否有重新申請推播的必要
                         //BEACON 取其名稱
-                    Log.d("TAG","BLE device : " + device.getName());
 
                     notificationManager.cancelAll();//清理舊的通知資料
                     prb=device.getName().toString();
